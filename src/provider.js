@@ -27,7 +27,7 @@
  * @author  Anders Evenrud <andersevenrud@gmail.com>
  * @licence Simplified BSD License
  */
-
+import {ServiceProvider} from '@osjs/common';
 import {ContextMenu} from './contextmenu.js';
 
 /*
@@ -48,9 +48,10 @@ const validContextMenuTarget = ev => {
  *
  * @desc Provides wrapper services around GUI features
  */
-export class GUIServiceProvider {
+export class GUIServiceProvider extends ServiceProvider {
 
   constructor(core) {
+    super(core);
     this.core = core;
     this.contextmenu = new ContextMenu(core);
   }
@@ -88,7 +89,7 @@ export class GUIServiceProvider {
     });
   }
 
-  start() {
+  async start() {
     const callback = ev => {
       const menu = document.getElementById('osjs-context-menu');
       const hit = menu && menu.contains(ev.target);
